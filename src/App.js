@@ -1,6 +1,7 @@
 import './App.css';
 import { useForm } from 'react-hook-form';
-import { acoes } from "./types/"
+import { acoes } from "./types/";
+import Moment from 'moment';
 import { apiBroker, apiConsumer } from './services/api';
 import { useEffect, useState } from 'react';
 
@@ -51,11 +52,12 @@ function App() {
         <p class="fs-1 text-white text-center">Homebroker</p>
       </div>
         <div class="row row-cols-2 gy-5 justify-content-around">
-            <div class="col-3 bg-light p-4">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 bg-light p-4">
+                <h6>Compra e Venda de Ativos</h6>
                 <form onSubmit={handleSubmit(handleSolicitation)}>
                     <div class="mb-3">
                       <label class="form-label">Titulo Ação</label>
-                      <select className="form-select" aria-label="Default select example" {...register('acao')}>
+                      <select className="form-select" aria-label="Default select example" {...register('acao')} required>
                         {acoes.map((index) => (
                           <option key={index} value={index} selected>{index}</option>
                         ))}
@@ -64,17 +66,23 @@ function App() {
 
                     <div class="mb-3">
                         <label class="form-label">Quantidade</label>
-                        <input type="number" class="form-control" {...register('quantAcoes')} />
+                        <input type="number" class="form-control" {...register('quantAcoes')} min="1" required/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Valor</label>
-                        <input type="text" class="form-control" {...register('valor')}/>
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">R$</div>
+                          </div>
+                          <input type="number" class="form-control" {...register('valor')} min="0.01" step="0.01" required/>
+                        </div>
                     </div>
                     <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
                         type="radio"
                         value="compra"
+                        required
                         {...register('tipoEvento', { required: true })}
                       />
                       <label className="form-check-label">Compra</label>
@@ -88,10 +96,11 @@ function App() {
                       />
                       <label className="form-check-label">Venda</label>
                     </div>
-                    <button type="submit" class="btn btn-primary float-end mt-2 d-block">solicitar</button>
+                    <button type="submit" class="btn btn-primary float-end mt-2 d-block">Solicitar</button>
                 </form>
             </div>
             <div class="col-8 bg-light ms-1">
+                <h5>Transações</h5>
                 <table class="table">
                     <thead>
                     <tr>
@@ -100,7 +109,7 @@ function App() {
                         <th scope="col">Corretora</th>
                         <th scope="col">Valor</th>
                         <th scope="col">Quantidade</th>
-                        <th scope="col">dataTransacao</th>
+                        <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -111,7 +120,7 @@ function App() {
                         <td>{row.solicitacaoCompra ? row.solicitacaoCompra.corretora : ""}</td>
                         <td>{row.solicitacaoCompra ? row.solicitacaoCompra.real : ""}</td>
                         <td>{row.solicitacaoCompra ? row.solicitacaoCompra.quant : ""}</td>
-                        <td>{row.dataTransacao}</td>
+                        <td>{Moment(row.dataTransacao).format('DD/MM/YYYY H:m:s')}</td>
                       </tr>
                     ))}
                   </tbody>
