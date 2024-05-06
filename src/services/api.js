@@ -5,7 +5,7 @@ const apiConsumer = axios.create({
 });
 
 const apiBroker = axios.create({
-    baseURL: "http://localhost:4545/",
+    baseURL: "https://broker-mk3x.onrender.com",
 });
 
 export { apiConsumer, apiBroker };
