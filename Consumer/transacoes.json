@@ -1,0 +1,43 @@
+[ {
+  "solicitacaoVenda" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "solicitacaoCompra" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "dataTransacao" : "2024-05-04T21:05:18.710908"
+}, {
+  "solicitacaoVenda" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "solicitacaoCompra" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "dataTransacao" : "2024-05-04T21:05:34.274580"
+}, {
+  "solicitacaoVenda" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "solicitacaoCompra" : {
+    "quant" : 3,
+    "real" : 3.0,
+    "corretora" : "Corretora",
+    "ativo" : "ABEV3"
+  },
+  "dataTransacao" : "2024-05-04T21:05:42.798896"
+} ]

@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  broker:
+    image: Broker
+    build:
+      context: ./Broker
+      dockerfile: Dockerfile
+    ports:
+      - "4545:4545"
+  
+  consumer:
+    image: Consumer 
+    build:
+      context: ./Consumer
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - broker
+
+  web:
+    image: Web
+    build:
+      context: ./Web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"  # Porta padrão para conexões AMQP
+      - "15672:15672"  # Porta do painel de controle do RabbitMQ
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq  # Volume para persistir os dados
+
+volumes:
+  rabbitmq_data:
