@@ -2,15 +2,16 @@ version: '3.9'
 
 services:
   broker:
-    image: Broker
+    image: broker:1
     build:
       context: ./Broker
       dockerfile: Dockerfile
     ports:
       - "4545:4545"
+    restart: always
   
   consumer:
-    image: Consumer 
+    image: consumer:1
     build:
       context: ./Consumer
       dockerfile: Dockerfile
@@ -18,14 +19,17 @@ services:
       - "8080:8080"
     depends_on:
       - broker
+    restart: always
 
   web:
-    image: Web
+    image: web:1
     build:
       context: ./Web
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - consumer
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -34,6 +38,7 @@ services:
       - "15672:15672"  # Porta do painel de controle do RabbitMQ
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq  # Volume para persistir os dados
+    restart: always
 
 volumes:
   rabbitmq_data:
