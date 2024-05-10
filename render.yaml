@@ -1,24 +1,24 @@
 services:
-  - type: docker
+  - type: web
     name: broker
     buildCommand: docker-compose build broker
     startCommand: docker-compose up broker
-    healthCheckPath: /
+    healthCheckPath: / # Caminho de verificação de saúde específico para o serviço
 
-  - type: docker
+  - type: web
     name: rabbitmq
     buildCommand: docker-compose build rabbitmq
     startCommand: docker-compose up rabbitmq
-    healthCheckPath: /
+    healthCheckPath: / # Caminho de verificação de saúde específico para o serviço
 
-  - type: docker
+  - type: web
     name: consumer
     buildCommand: docker-compose build consumer
     startCommand: docker-compose up consumer
-    healthCheckPath: /
+    healthCheckPath: / # Caminho de verificação de saúde específico para o serviço
 
-  - type: docker
+  - type: web
     name: web
     buildCommand: docker-compose build web
     startCommand: docker-compose up web
-    healthCheckPath: /
+    healthCheckPath: / # Caminho de verificação de saúde específico para o serviço
