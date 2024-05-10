@@ -1,0 +1,20 @@
+services:
+  - name: broker
+    buildCommand: docker-compose build broker
+    startCommand: docker-compose up broker
+    healthCheckPath: /
+
+  - name: rabbitmq
+    buildCommand: docker-compose build rabbitmq
+    startCommand: docker-compose up rabbitmq
+    healthCheckPath: /
+
+  - name: consumer
+    buildCommand: docker-compose build consumer
+    startCommand: docker-compose up consumer
+    healthCheckPath: /
+
+  - name: web
+    buildCommand: docker-compose build web
+    startCommand: docker-compose up web
+    healthCheckPath: /
