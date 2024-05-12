@@ -1,9 +1,9 @@
-import './App.css';
-import { useForm } from 'react-hook-form';
+import "./App.css";
+import { useForm } from "react-hook-form";
 import { acoes } from "./types/";
-import Moment from 'moment';
-import { apiBroker, apiConsumer } from './services/api';
-import { useEffect, useState } from 'react';
+import Moment from "moment";
+import { apiBroker, apiConsumer } from "./services/api";
+import { useEffect, useState } from "react";
 
 function App() {
   const [transacoes, setTransacoes] = useState([]);
@@ -18,39 +18,54 @@ function App() {
       }
     };
 
-    fetchData();
-  }, [transacoes]);
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  });
 
   const [compras, setCompras] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const el = document.getElementById('ativo-compras');
-        const response = await apiConsumer.get("/Solicitacoes/compra", { 'headers': { 'ativo': el?.value || '' } });
+        const el = document.getElementById("ativo-compras");
+        const response = await apiConsumer.get("/Solicitacoes/compra", {
+          headers: { ativo: el?.value || "" },
+        });
         setCompras(response.data);
       } catch (error) {
         console.error("Erro ao processar solicitação:", error);
       }
     };
 
-    fetchData();
-  }, [compras]);
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  });
 
   const [vendas, setVendas] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const el = document.getElementById('ativo-vendas');
-        const response = await apiConsumer.get("/Solicitacoes/venda", { 'headers': { 'ativo': el?.value || '' } });
+        const el = document.getElementById("ativo-vendas");
+        const response = await apiConsumer.get("/Solicitacoes/venda", {
+          headers: { ativo: el?.value || "" },
+        });
         setVendas(response.data);
       } catch (error) {
         console.error("Erro ao processar solicitação:", error);
       }
     };
 
-    fetchData();
-  }, [vendas]);
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 10000);
 
+    return () => clearInterval(intervalId);
+  });
 
   const { register, handleSubmit } = useForm({});
 
@@ -58,7 +73,7 @@ function App() {
     const data = {
       quant: formData.quantAcoes,
       real: Number(formData.valor),
-      ativo: formData.acao
+      ativo: formData.acao,
     };
 
     try {
@@ -74,8 +89,6 @@ function App() {
     }
   };
 
-
-
   return (
     <div class="container-fluid bg-dark">
       <div>
@@ -87,16 +100,29 @@ function App() {
           <form onSubmit={handleSubmit(handleSolicitation)}>
             <div class="mb-3">
               <label class="form-label">Titulo Ação</label>
-              <select className="form-select" aria-label="Default select example" {...register('acao')} required>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                {...register("acao")}
+                required
+              >
                 {acoes.map((index) => (
-                  <option key={index} value={index} selected>{index}</option>
+                  <option key={index} value={index} selected>
+                    {index}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Quantidade</label>
-              <input type="number" class="form-control" {...register('quantAcoes')} min="1" required />
+              <input
+                type="number"
+                class="form-control"
+                {...register("quantAcoes")}
+                min="1"
+                required
+              />
             </div>
             <div class="mb-3">
               <label class="form-label">Valor</label>
@@ -104,7 +130,14 @@ function App() {
                 <div class="input-group-prepend">
                   <div class="input-group-text">R$</div>
                 </div>
-                <input type="number" class="form-control" {...register('valor')} min="0.01" step="0.01" required />
+                <input
+                  type="number"
+                  class="form-control"
+                  {...register("valor")}
+                  min="0.01"
+                  step="0.01"
+                  required
+                />
               </div>
             </div>
             <div className="form-check form-check-inline">
@@ -113,7 +146,7 @@ function App() {
                 type="radio"
                 value="compra"
                 required
-                {...register('tipoEvento', { required: true })}
+                {...register("tipoEvento", { required: true })}
               />
               <label className="form-check-label">Compra</label>
             </div>
@@ -122,11 +155,16 @@ function App() {
                 className="form-check-input"
                 type="radio"
                 value="venda"
-                {...register('tipoEvento', { required: true })}
+                {...register("tipoEvento", { required: true })}
               />
               <label className="form-check-label">Venda</label>
             </div>
-            <button type="submit" class="btn btn-primary float-end mt-2 d-block">Solicitar</button>
+            <button
+              type="submit"
+              class="btn btn-primary float-end mt-2 d-block"
+            >
+              Solicitar
+            </button>
           </form>
         </div>
         <div class="col-8 bg-light ms-1">
@@ -146,11 +184,23 @@ function App() {
               {transacoes?.map((row, index) => (
                 <tr key={index}>
                   <td>{row.index}</td>
-                  <td>{row.solicitacaoCompra ? row.solicitacaoCompra.ativo : ""}</td>
-                  <td>{row.solicitacaoCompra ? row.solicitacaoCompra.corretora : ""}</td>
-                  <td>{row.solicitacaoCompra ? row.solicitacaoCompra.real : ""}</td>
-                  <td>{row.solicitacaoCompra ? row.solicitacaoCompra.quant : ""}</td>
-                  <td>{Moment(row.dataTransacao).format('DD/MM/YYYY H:m:s')}</td>
+                  <td>
+                    {row.solicitacaoCompra ? row.solicitacaoCompra.ativo : ""}
+                  </td>
+                  <td>
+                    {row.solicitacaoCompra
+                      ? row.solicitacaoCompra.corretora
+                      : ""}
+                  </td>
+                  <td>
+                    {row.solicitacaoCompra ? row.solicitacaoCompra.real : ""}
+                  </td>
+                  <td>
+                    {row.solicitacaoCompra ? row.solicitacaoCompra.quant : ""}
+                  </td>
+                  <td>
+                    {Moment(row.dataTransacao).format("DD/MM/YYYY H:m:s")}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -158,9 +208,11 @@ function App() {
         </div>
         <div class="col-4 bg-light ms-1 mb-4">
           <h5>Solicitações Compra</h5>
-          <select className="form-select" id="ativo-compras" >
+          <select className="form-select" id="ativo-compras">
             {acoes.map((index) => (
-              <option key={index} value={index} selected>{index}</option>
+              <option key={index} value={index} selected>
+                {index}
+              </option>
             ))}
           </select>
           <table class="table">
@@ -192,7 +244,9 @@ function App() {
           <h5>Solicitações Venda</h5>
           <select className="form-select" id="ativo-vendas">
             {acoes.map((index) => (
-              <option key={index} value={index} selected>{index}</option>
+              <option key={index} value={index} selected>
+                {index}
+              </option>
             ))}
           </select>
           <table class="table">
