@@ -73,11 +73,11 @@ public class OrderMessages {
 
     private static ConnectionFactory getConnectionFactory() {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("jackal.rmq.cloudamqp.com");
+        factory.setHost("bovespa-rabbitmq-gyqs.onrender.com");
         factory.setPort(5672);
-        factory.setUsername("angxpqak");
-        factory.setPassword("XrYoAMUvtZkGsqEcCf8dtboDcGX0aoYS");
-        factory.setVirtualHost("angxpqak");
+        factory.setUsername("guest");
+        factory.setPassword("guest");
+        factory.setVirtualHost("/");
         return factory;
     }
 }
