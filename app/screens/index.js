@@ -1,13 +1,13 @@
 import MainLayout from "./MainLayout"
 import Home from "./Home"
-import Portfolio from "./Portfolio"
-import Market from "./Market"
-import Profile from "./Profile"
+import Compra from "./Compra"
+import Venda from "./Venda"
+import Transacoes from "./Transacoes"
 
 export {
     MainLayout,
     Home,
-    Portfolio,
-    Market,
-    Profile
+    Compra,
+    Venda,
+    Transacoes
 }

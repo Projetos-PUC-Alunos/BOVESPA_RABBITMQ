@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-import { MainLayout } from "./";
+import { MainLayout } from ".";
 
-const Portfolio = () => {
+const Transacoes = () => {
   return (
     <MainLayout>
       <View>
-        <Text>Portfolio</Text>
+        <Text>Transações</Text>
       </View>
     </MainLayout>
   );
 };
 
-export default Portfolio;
+export default Transacoes;

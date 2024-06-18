@@ -6,6 +6,7 @@ const profile = require("../assets/icons/profile.png")
 const rightArrow = require("../assets/icons/right-arrow.png")
 const send = require("../assets/icons/send.png")
 const trade = require("../assets/icons/trade.png")
+const venda = require("../assets/icons/venda.png")
 const upArrow = require("../assets/icons/up-arrow.png")
 const verified = require("../assets/icons/verified.png")
 const withdraw = require("../assets/icons/withdraw.png")
@@ -19,6 +20,7 @@ export default {
     rightArrow,
     send,
     trade,
+    venda,
     upArrow,
     verified,
     withdraw,

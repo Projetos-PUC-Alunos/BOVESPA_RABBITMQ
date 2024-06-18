@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { connect } from "react-redux";
 import { setTradeModalVisibility } from "../stores/tab/tabActions";
 
-import { Home, Portfolio, Market, Profile } from "../screens";
+import { Home, Compra, Venda, Transacoes } from "../screens";
 import { TabIcon } from "../components";
 import { COLORS, icons } from "../constants";
 
@@ -66,8 +66,8 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
         }}
       />
       <Tab.Screen
-        name="Portfolio"
-        component={Portfolio}
+        name="Compra"
+        component={Compra}
         options={{
           tabBarIcon: ({ focused }) => {
             if (!isTradeModalVisible) {
@@ -75,7 +75,7 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
                 <TabIcon
                   focused={focused}
                   icon={icons.briefcase}
-                  label="Portfolio"
+                  label="Compra"
                 />
               );
             }
@@ -114,13 +114,13 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
         }}
       />
       <Tab.Screen
-        name="Market"
-        component={Market}
+        name="Venda"
+        component={Venda}
         options={{
           tabBarIcon: ({ focused }) => {
             if (!isTradeModalVisible) {
               return (
-                <TabIcon focused={focused} icon={icons.market} label="Market" />
+                <TabIcon focused={focused} icon={icons.venda} label="Venda" />
               );
             }
           },
@@ -134,16 +134,16 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Transações"
+        component={Transacoes}
         options={{
           tabBarIcon: ({ focused }) => {
             if (!isTradeModalVisible) {
               return (
                 <TabIcon
                   focused={focused}
-                  icon={icons.profile}
-                  label="Profile"
+                  icon={icons.market}
+                  label="Transações"
                 />
               );
             }

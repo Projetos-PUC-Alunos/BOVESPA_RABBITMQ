@@ -84,10 +84,14 @@ const MainLayout = ({ children, isTradeModalVisible }) => {
 
 //export default MainLayout;
 
-const mapStateToProps = (state) => ({
-  isTradeModalVisible: state.tabReducer.isTradeModalVisible,
-});
+function mapStateToProps(state){
+  return {
+    isTradeModalVisible: state.tabReducer.isTradeModalVisible
+  }
+}
 
-const mapDispatchToProps = (dispatch) => ({});
+function mapDispatchToProps(dispatch) {
+  return {}
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

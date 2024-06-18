@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-import { MainLayout } from "./";
+import { MainLayout } from ".";
 
-const Profile = () => {
+const Venda = () => {
   return (
     <MainLayout>
       <View>
-        <Text>Profile</Text>
+        <Text>Venda</Text>
       </View>
     </MainLayout>
   );
 };
 
-export default Profile;
+export default Venda;
