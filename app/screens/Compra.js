@@ -77,7 +77,7 @@ const Compra = () => {
           <Text style={styles.buttonText}>Comprar</Text>
         </TouchableOpacity>
 
-        <Text style={styles.sectionTitle}>Solicitações de venda</Text>
+        <Text style={styles.sectionTitle}>Solicitações de Venda</Text>
         
 
         {/* Card Solicitações Venda */}
@@ -94,7 +94,7 @@ const Compra = () => {
           </View>
           <Text
             style={{
-              color: COLORS.white,
+              color: COLORS.red,
               marginTop: 5
             }}
           >
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: COLORS.black,
+    paddingVertical: 70
   },
   title: {
     fontSize: 24,
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     textAlign: "center",
     fontSize: 16,
+    fontWeight: 'bold'
   },
 });
 
@@ -186,6 +188,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    color: COLORS.white,
     paddingRight: 30, // Para espaço de ícone de seta em iOS
   },
   inputAndroid: {
@@ -195,6 +198,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    color: COLORS.white,
     paddingRight: 30, // Para espaço de ícone de seta em Android
   },
 });
