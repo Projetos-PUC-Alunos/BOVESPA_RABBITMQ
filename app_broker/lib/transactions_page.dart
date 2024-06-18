@@ -1,7 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:async';
+import 'package:http/http.dart' as http;
 
 class TransactionsPage extends StatefulWidget {
   @override
@@ -9,27 +10,26 @@ class TransactionsPage extends StatefulWidget {
 }
 
 class _TransactionsPageState extends State<TransactionsPage> {
-  @override
   List<dynamic> _orders = [];
-  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080/';
+  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080';
 
   late Timer _timer;
 
-  get http => null;
   @override
   void initState() {
-    // super.initState();
+    super.initState();
     _startTimer();
+    _fetchData();
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
-    // super.dispose();
+    _timer.cancel();
+    super.dispose();
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       _fetchData();
     });
   }
@@ -38,7 +38,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transações'),
+        title: const Text('Transações'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -47,15 +47,15 @@ class _TransactionsPageState extends State<TransactionsPage> {
           itemBuilder: (context, index) {
             var order = _orders[index];
             return ListTile(
-              title: Text('Ativo: ${order['ativo']}'),
+              title: Text('Ativo: ${order['solicitacaoVenda']['ativo']}'),
               subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Valor venda: R\$ ${order['real']}', style: TextStyle(color: Colors.red)),
-                    Text('Valor Compra: R\$ ${order['real']}', style: TextStyle(color: Colors.green)),
+                    Text('Valor venda: R\$ ${order['solicitacaoVenda']['real']}', style: const TextStyle(color: Colors.red)),
+                    Text('Valor Compra: R\$ ${order['solicitacaoCompra']['real']}', style: const TextStyle(color: Colors.green)),
                   ]
               ),
-              trailing: Text('Quantidade: ${order['quant']}'),
+              trailing: Text('Quantidade: ${order['solicitacaoVenda']['quant']}'),
             );
           },
         ),
@@ -73,8 +73,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
       );
 
       if (response.statusCode == 200) {
+        log('orders: $_orders');
         setState(() {
           _orders = jsonDecode(response.body);
+
         });
       } else {
         _showSnackbar('Houve um erro ao carregar as transações.');
@@ -83,6 +85,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
         });
       }
     } catch (e) {
+      log('error: ${e.toString()}');
       _showSnackbar('Houve um erro ao carregar as transações.');
       setState(() {
         _orders = [];

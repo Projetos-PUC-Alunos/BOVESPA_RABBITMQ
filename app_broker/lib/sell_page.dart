@@ -28,8 +28,8 @@ class _SellPageState extends State<SellPage> {
 
   String? _selectedAtivo;
 
-  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080/';
-  final String _baseUrlPost = 'http://ec2-15-228-187-10.sa-east-1.compute.amazonaws.com:8080/';
+  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080';
+  final String _baseUrlPost = 'http://ec2-15-228-187-10.sa-east-1.compute.amazonaws.com:8080';
 
   List<dynamic> _sells = [];
 
@@ -122,7 +122,7 @@ class _SellPageState extends State<SellPage> {
   void _fetchData(String value) async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/compra'),
+        Uri.parse('$_baseUrl/solicitacoes/compra'),
         headers: {
           'ativo': value,
         },
@@ -156,6 +156,7 @@ class _SellPageState extends State<SellPage> {
         Uri.parse('$_baseUrlPost/venda'),
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
           // 'Custom-Header': selectedValue ?? '',
         },
         body: jsonEncode({

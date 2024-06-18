@@ -28,8 +28,8 @@ class _BuyPageState extends State<BuyPage> {
 
   String? _selectedAtivo;
 
-  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080/';
-  final String _baseUrlPost = 'http://ec2-15-228-187-10.sa-east-1.compute.amazonaws.com:8080/';
+  final String _baseUrl = 'http://ec2-15-228-190-59.sa-east-1.compute.amazonaws.com:8080';
+  final String _baseUrlPost = 'http://ec2-15-228-187-10.sa-east-1.compute.amazonaws.com:8080';
 
   List<dynamic> _buys = [];
 
@@ -122,7 +122,7 @@ class _BuyPageState extends State<BuyPage> {
   void _fetchData(String value) async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/venda'),
+        Uri.parse('$_baseUrl/solicitacoes/venda'),
         headers: {
           'ativo': value,
         },
