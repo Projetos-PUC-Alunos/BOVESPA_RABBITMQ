@@ -107,7 +107,7 @@ class _BuyPageState extends State<BuyPage> {
                   var buy = _buys[index];
                   return ListTile(
                     title: Text('Ativo: ${buy['ativo']}'),
-                    subtitle: Text('R\$ ${buy['valor']}'),
+                    subtitle: Text('R\$ ${buy['real']}'),
                     trailing: Text('Quantidade: ${buy['quant']}'),
                   );
                 },
@@ -165,7 +165,7 @@ class _BuyPageState extends State<BuyPage> {
         }),
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200){
         _showSnackbar('Enviado com sucesso!');
         _fetchData(selectedValue!);
       } else {

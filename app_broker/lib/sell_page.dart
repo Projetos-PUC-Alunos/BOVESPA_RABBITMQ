@@ -166,7 +166,7 @@ class _SellPageState extends State<SellPage> {
         }),
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         _showSnackbar('Enviado com sucesso!');
         _fetchData(selectedValue!);
       } else {
